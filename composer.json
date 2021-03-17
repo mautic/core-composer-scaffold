@@ -1,5 +1,5 @@
 {
-  "name": "nickveenhof/mautic-core-composer-scaffold",
+  "name": "mautic/core-composer-scaffold",
   "description": "A flexible Composer project scaffold builder.",
   "type": "composer-plugin",
   "keywords": ["mautic"],
