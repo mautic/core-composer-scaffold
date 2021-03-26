@@ -10,7 +10,7 @@ use Composer\Package\PackageInterface;
 /**
  * Determine recursively which packages have been allowed to scaffold files.
  *
- * If the root-level composer.json allows mautic/core, and mautic/core allows
+ * If the root-level composer.json allows mautic/core-lib, and mautic/core-lib allows
  * mautic/assets, then the later package will also implicitly be allowed.
  *
  * @internal
@@ -65,7 +65,7 @@ class AllowedPackages implements PostPackageEventListenerInterface {
    * Gets a list of all packages that are allowed to copy scaffold files.
    *
    * We will implicitly allow the projects 'mautic/legacy-scaffold-assets'
-   * and 'mautic/core' to scaffold files, if they are present. Any other
+   * and 'mautic/core-lib' to scaffold files, if they are present. Any other
    * project must be explicitly whitelisted in the top-level composer.json
    * file in order to be allowed to override scaffold files.
    * Configuration for packages specified later will override configuration
@@ -107,7 +107,7 @@ class AllowedPackages implements PostPackageEventListenerInterface {
    * Gets all packages that are allowed in the top-level composer.json.
    *
    * We will implicitly allow the projects 'mautic/legacy-scaffold-assets'
-   * and 'mautic/core' to scaffold files, if they are present. Any other
+   * and 'mautic/core-lib' to scaffold files, if they are present. Any other
    * project must be explicitly whitelisted in the top-level composer.json
    * file in order to be allowed to override scaffold files.
    *
@@ -116,7 +116,7 @@ class AllowedPackages implements PostPackageEventListenerInterface {
    */
   protected function getTopLevelAllowedPackages() {
     $implicit_packages = [
-      'mautic/core'
+      'mautic/core-lib'
     ];
     $top_level_packages = $this->manageOptions->getOptions()->allowedPackages();
     return array_merge($implicit_packages, $top_level_packages);

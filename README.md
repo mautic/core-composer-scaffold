@@ -1,7 +1,7 @@
 # Mautic Composer Scaffold
 
 This project provides a composer plugin for placing scaffold files (like
-`index.php`, `update.php`, …) from the `mautic/core` project into their desired
+`index.php`, `update.php`, …) from the `mautic/core-lib` project into their desired
 location inside the web root. Only individual files may be scaffolded with this
 plugin.
 
@@ -48,14 +48,14 @@ their destination location. In order to prevent arbitrary dependencies from
 copying files via the scaffold mechanism, only those projects that are
 specifically permitted by the top-level project will be used to scaffold files.
 
-Example: Permit scaffolding from the project `mautic/core`
+Example: Permit scaffolding from the project `mautic/core-lib`
 ```
   "name": "my/project",
   ...
   "extra": {
     "mautic-scaffold": {
       "allowed-packages": [
-        "mautic/core"
+        "mautic/core-lib"
       ],
       ...
     }
@@ -64,7 +64,7 @@ Example: Permit scaffolding from the project `mautic/core`
 Allowing a package to scaffold files also permits it to delegate permission to
 scaffold to any project that it requires itself. This allows a package to
 organize its scaffold assets as it sees fit. For example, the project
-`mautic/core` may choose to store its assets in a subproject `mautic/assets`.
+`mautic/core-lib` may choose to store its assets in a subproject `mautic/assets`.
 
 It is possible for a project to obtain scaffold files from multiple projects.
 For example, a Mautic project using a distribution, and installing on a specific
@@ -110,7 +110,7 @@ but alter it in some way. Two forms of alteration are supported: appending and
 patching.
 
 The example below shows a project that appends additional entries onto the end
-of the `robots.txt` file provided by `mautic/core`:
+of the `robots.txt` file provided by `mautic/core-lib`:
 ```
   "name": "my/project",
   ...
@@ -230,7 +230,7 @@ The `allowed-packages` configuration setting contains an ordered list of package
 names that will be used during the scaffolding phase.
 ```
 "allowed-packages": [
-  "mautic/core",
+  "mautic/core-lib",
 ],
 ```
 ### file-mapping
@@ -383,7 +383,7 @@ Sample composer.json for a project that relies on packages that use composer-sca
     "nickveenhof/mautic-core-composer-scaffold": "*",
     "composer/installers": "^1.2",
     "cweagans/composer-patches": "^1.6.5",
-    "mautic/core": "3.x-dev",
+    "mautic/core-lib": "3.x-dev",
     "service-provider/mautic-3x-scaffold-files": "^1"
   },
   "config": {
@@ -393,7 +393,7 @@ Sample composer.json for a project that relies on packages that use composer-sca
   "extra": {
     "mautic-scaffold": {
       "allowed-packages": [
-        "mautic/core"
+        "mautic/core-lib"
       ],
       "locations": {
         "web-root": "./docroot"
@@ -409,11 +409,11 @@ Sample composer.json for a project that relies on packages that use composer-sca
 }
 ```
 
-Sample composer.json for mautic/core, with assets placed in a different project:
+Sample composer.json for mautic/core-lib, with assets placed in a different project:
 
 ```
 {
-  "name": "mautic/core",
+  "name": "mautic/core-lib",
   "extra": {
     "mautic-scaffold": {
       "allowed-packages": [
