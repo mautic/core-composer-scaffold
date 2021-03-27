@@ -91,7 +91,7 @@ class AllowedPackages implements PostPackageEventListenerInterface {
     return $this->evaluateNewPackages($allowed_packages);
   }
 
-/**
+  /**
    * {@inheritdoc}
    */
   public function event(PackageEvent $event) {
@@ -179,7 +179,7 @@ class AllowedPackages implements PostPackageEventListenerInterface {
     return $allowed_packages;
   }
 
-   /**
+  /**
    * Determine the type of the provided operation.
    *
    * Adjusts API used for Composer 1 or Composer 2.
