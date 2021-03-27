@@ -100,7 +100,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    *   The Composer event.
    */
   public function postCmd(Event $event) {
-    $this->handler->scaffold();
+    $this->handler()->scaffold();
   }
 
   /**
@@ -110,7 +110,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    *   Composer package event sent on install/update/remove.
    */
   public function postPackage(PackageEvent $event) {
-    $this->handler->onPostPackageEvent($event);
+    $this->handler()->onPostPackageEvent($event);
   }
 
   /**
