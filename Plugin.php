@@ -24,6 +24,20 @@ use Mautic\Composer\Plugin\Scaffold\CommandProvider as ScaffoldCommandProvider;
 class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
 
   /**
+   * The Composer service.
+   *
+   * @var \Composer\Composer
+   */
+  protected $composer;
+
+  /**
+   * Composer's I/O service.
+   *
+   * @var \Composer\IO\IOInterface
+   */
+  protected $io;
+
+  /**
    * The Composer Scaffold handler.
    *
    * @var \Mautic\Composer\Plugin\Scaffold\Handler
@@ -31,14 +45,32 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
   protected $handler;
 
   /**
+   * Record whether the 'require' command was called.
+   *
+   * @param bool
+   */
+  protected $requireWasCalled;
+
+
+  /**
    * {@inheritdoc}
    */
   public function activate(Composer $composer, IOInterface $io) {
-    // We use a Handler object to separate the main functionality
-    // of this plugin from the Composer API. This also avoids some
-    // debug issues with the plugin being copied on initialisation.
-    // @see \Composer\Plugin\PluginManager::registerPackage()
-    $this->handler = new Handler($composer, $io);
+    $this->composer = $composer;
+    $this->io = $io;
+    $this->requireWasCalled = FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deactivate(Composer $composer, IOInterface $io) {
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function uninstall(Composer $composer, IOInterface $io) {
   }
 
   /**
@@ -52,6 +84,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
+    // Important note: We only instantiate our handler on "post" events.
     return [
       ScriptEvents::POST_UPDATE_CMD => 'postCmd',
       ScriptEvents::POST_INSTALL_CMD => 'postCmd',
@@ -88,8 +121,28 @@ class Plugin implements PluginInterface, EventSubscriberInterface, Capable {
    */
   public function onCommand(CommandEvent $event) {
     if ($event->getCommandName() == 'require') {
-      $this->handler->beforeRequire($event);
+      if ($this->handler) {
+        throw new \Error('Core Scaffold Plugin handler instantiated too early. See https://www.drupal.org/project/drupal/issues/3104922');
+      }
+      $this->requireWasCalled = TRUE;
     }
+  }
+
+  /**
+   * Lazy-instantiate the handler object. It is dangerous to update a Composer
+   * plugin if it loads any classes prior to the `composer update` operation,
+   * and later tries to use them in a post-update hook.
+   */
+  protected function handler() {
+    if (!$this->handler) {
+      $this->handler = new Handler($this->composer, $this->io);
+      // On instantiation of our handler, notify it if the 'require' command
+      // was executed.
+      if ($this->requireWasCalled) {
+        $this->handler->requireWasCalled();
+      }
+    }
+    return $this->handler;
   }
 
 }

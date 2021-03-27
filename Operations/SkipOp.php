@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\Composer\Plugin\Scaffold\Operations;
+namespace Drupal\Composer\Plugin\Scaffold\Operations;
 
 use Composer\IO\IOInterface;
-use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
-use Mautic\Composer\Plugin\Scaffold\ScaffoldOptions;
+use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to skip a scaffold file (do nothing).
@@ -33,6 +33,13 @@ class SkipOp extends AbstractOperation {
    */
   public function __construct($message = "  - Skip <info>[dest-rel-path]</info>: disabled") {
     $this->message = $message;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function generateContents() {
+    return '';
   }
 
   /**

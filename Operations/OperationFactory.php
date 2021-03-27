@@ -1,10 +1,10 @@
 <?php
 
-namespace Mautic\Composer\Plugin\Scaffold\Operations;
+namespace Drupal\Composer\Plugin\Scaffold\Operations;
 
 use Composer\Composer;
 use Composer\Package\PackageInterface;
-use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
 
 /**
  * Create Scaffold operation objects based on provided metadata.
@@ -40,7 +40,7 @@ class OperationFactory {
    * @param OperationData $operation_data
    *   The parameter data for this operation object; varies by operation type.
    *
-   * @return \Mautic\Composer\Plugin\Scaffold\Operations\OperationInterface
+   * @return \Drupal\Composer\Plugin\Scaffold\Operations\OperationInterface
    *   The scaffolding operation object (skip, replace, etc.)
    *
    * @throws \RuntimeException
@@ -71,7 +71,7 @@ class OperationFactory {
    * @param OperationData $operation_data
    *   The parameter data for this operation object, i.e. the relative 'path'.
    *
-   * @return \Mautic\Composer\Plugin\Scaffold\Operations\OperationInterface
+   * @return \Drupal\Composer\Plugin\Scaffold\Operations\OperationInterface
    *   A scaffold replace operation object.
    */
   protected function createReplaceOp(PackageInterface $package, OperationData $operation_data) {
@@ -93,7 +93,7 @@ class OperationFactory {
    * @param OperationData $operation_data
    *   The parameter data for this operation object, i.e. the relative 'path'.
    *
-   * @return \Mautic\Composer\Plugin\Scaffold\Operations\OperationInterface
+   * @return \Drupal\Composer\Plugin\Scaffold\Operations\OperationInterface
    *   A scaffold replace operation object.
    */
   protected function createAppendOp(PackageInterface $package, OperationData $operation_data) {
@@ -122,7 +122,7 @@ class OperationFactory {
   /**
    * Checks to see if the specified scaffold file exists and has content.
    *
-   * @param Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $file
+   * @param Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $file
    *   Scaffold file to check.
    * @return bool
    *   True if the file exists and has content.

@@ -6,7 +6,7 @@
   "homepage": "https://www.mautic.org",
   "license": "GPL-2.0-or-later",
   "require": {
-    "composer-plugin-api": "^1.0 || ^2.0",
+    "composer-plugin-api": "^1.1 || ^2",
     "php": ">=7.4.0 <8.1"
   },
   "autoload": {

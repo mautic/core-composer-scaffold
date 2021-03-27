@@ -91,13 +91,17 @@ class AllowedPackages implements PostPackageEventListenerInterface {
     return $this->evaluateNewPackages($allowed_packages);
   }
 
-  /**
+/**
    * {@inheritdoc}
    */
   public function event(PackageEvent $event) {
     $operation = $event->getOperation();
-    // Determine the package.
-    $package = $operation->getJobType() == 'update' ? $operation->getTargetPackage() : $operation->getPackage();
+    // Determine the package. Later, in evaluateNewPackages(), we will report
+    // which of the newly-installed packages have scaffold operations, and
+    // whether or not they are allowed to scaffold by the allowed-packages
+    // option in the root-level composer.json file.
+    $operationType = $this->getOperationType($operation);
+    $package = $operationType === 'update' ? $operation->getTargetPackage() : $operation->getPackage();
     if (ScaffoldOptions::hasOptions($package->getExtra())) {
       $this->newPackages[$package->getName()] = $package;
     }
@@ -173,6 +177,26 @@ class AllowedPackages implements PostPackageEventListenerInterface {
     // assets. For more information, see:
     // https://www.drupal.org/project/drupal/issues/3064990
     return $allowed_packages;
+  }
+
+   /**
+   * Determine the type of the provided operation.
+   *
+   * Adjusts API used for Composer 1 or Composer 2.
+   *
+   * @param \Composer\DependencyResolver\Operation\OperationInterface $operation
+   *   The operation object.
+   *
+   * @return string
+   *   The operation type.
+   */
+  protected function getOperationType(OperationInterface $operation) {
+    // Use Composer 2 method.
+    if (method_exists($operation, 'getOperationType')) {
+      return $operation->getOperationType();
+    }
+    // Fallback to Composer 1 method.
+    return $operation->getJobType();
   }
 
   /**

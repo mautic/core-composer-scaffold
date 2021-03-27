@@ -1,11 +1,11 @@
 <?php
 
-namespace Mautic\Composer\Plugin\Scaffold\Operations;
+namespace Drupal\Composer\Plugin\Scaffold\Operations;
 
 use Composer\IO\IOInterface;
 use Composer\Util\Filesystem;
-use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
-use Mautic\Composer\Plugin\Scaffold\ScaffoldOptions;
+use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to copy or symlink from source to destination.
@@ -22,7 +22,7 @@ class ReplaceOp extends AbstractOperation {
   /**
    * The relative path to the source file.
    *
-   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $source;
 
@@ -36,7 +36,7 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Constructs a ReplaceOp.
    *
-   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $sourcePath
+   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $sourcePath
    *   The relative path to the source file.
    * @param bool $overwrite
    *   Whether to allow this scaffold file to overwrite files already at
@@ -45,6 +45,13 @@ class ReplaceOp extends AbstractOperation {
   public function __construct(ScaffoldFilePath $sourcePath, $overwrite = TRUE) {
     $this->source = $sourcePath;
     $this->overwrite = $overwrite;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function generateContents() {
+    return file_get_contents($this->source->fullPath());
   }
 
   /**
@@ -74,19 +81,18 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Copies the scaffold file.
    *
-   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
+   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
    *   Scaffold file to process.
    * @param \Composer\IO\IOInterface $io
    *   IOInterface to writing to.
    *
-   * @return \Mautic\Composer\Plugin\Scaffold\Operations\ScaffoldResult
+   * @return \Drupal\Composer\Plugin\Scaffold\Operations\ScaffoldResult
    *   The scaffold result.
    */
   protected function copyScaffold(ScaffoldFilePath $destination, IOInterface $io) {
     $interpolator = $destination->getInterpolator();
     $this->source->addInterpolationData($interpolator);
-    $fs = new Filesystem();
-    $success = $fs->copy($this->source->fullPath(), $destination->fullPath());
+    $success = file_put_contents($destination->fullPath(), $this->contents());
     if (!$success) {
       throw new \RuntimeException($interpolator->interpolate("Could not copy source file <info>[src-rel-path]</info> to <info>[dest-rel-path]</info>!"));
     }
@@ -97,12 +103,12 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Symlinks the scaffold file.
    *
-   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
+   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
    *   Scaffold file to process.
    * @param \Composer\IO\IOInterface $io
    *   IOInterface to writing to.
    *
-   * @return \Mautic\Composer\Plugin\Scaffold\Operations\ScaffoldResult
+   * @return \Drupal\Composer\Plugin\Scaffold\Operations\ScaffoldResult
    *   The scaffold result.
    */
   protected function symlinkScaffold(ScaffoldFilePath $destination, IOInterface $io) {
