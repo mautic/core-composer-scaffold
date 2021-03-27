@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\Composer\Plugin\Scaffold\Operations;
+namespace Mautic\Composer\Plugin\Scaffold\Operations;
 
 use Composer\IO\IOInterface;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to skip a scaffold file (do nothing).

@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Composer\Plugin\Scaffold\Operations;
+namespace Mautic\Composer\Plugin\Scaffold\Operations;
 
-use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
 
 /**
  * Record the result of a scaffold operation.
@@ -14,7 +14,7 @@ class ScaffoldResult {
   /**
    * The path to the scaffold file that was processed.
    *
-   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $destination;
 
@@ -28,7 +28,7 @@ class ScaffoldResult {
   /**
    * ScaffoldResult constructor.
    *
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
    *   The path to the scaffold file that was processed.
    * @param bool $isManaged
    *   (optional) Whether this result is managed. Defaults to FALSE.
@@ -51,7 +51,7 @@ class ScaffoldResult {
   /**
    * Gets the destination scaffold file that this result refers to.
    *
-   * @return \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @return \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    *   The destination path for the scaffold result.
    */
   public function destination() {

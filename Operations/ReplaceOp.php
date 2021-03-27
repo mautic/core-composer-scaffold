@@ -1,11 +1,11 @@
 <?php
 
-namespace Drupal\Composer\Plugin\Scaffold\Operations;
+namespace Mautic\Composer\Plugin\Scaffold\Operations;
 
 use Composer\IO\IOInterface;
 use Composer\Util\Filesystem;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to copy or symlink from source to destination.
@@ -22,7 +22,7 @@ class ReplaceOp extends AbstractOperation {
   /**
    * The relative path to the source file.
    *
-   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $source;
 
@@ -36,7 +36,7 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Constructs a ReplaceOp.
    *
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $sourcePath
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $sourcePath
    *   The relative path to the source file.
    * @param bool $overwrite
    *   Whether to allow this scaffold file to overwrite files already at
@@ -81,12 +81,12 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Copies the scaffold file.
    *
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
    *   Scaffold file to process.
    * @param \Composer\IO\IOInterface $io
    *   IOInterface to writing to.
    *
-   * @return \Drupal\Composer\Plugin\Scaffold\Operations\ScaffoldResult
+   * @return \Mautic\Composer\Plugin\Scaffold\Operations\ScaffoldResult
    *   The scaffold result.
    */
   protected function copyScaffold(ScaffoldFilePath $destination, IOInterface $io) {
@@ -103,12 +103,12 @@ class ReplaceOp extends AbstractOperation {
   /**
    * Symlinks the scaffold file.
    *
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $destination
    *   Scaffold file to process.
    * @param \Composer\IO\IOInterface $io
    *   IOInterface to writing to.
    *
-   * @return \Drupal\Composer\Plugin\Scaffold\Operations\ScaffoldResult
+   * @return \Mautic\Composer\Plugin\Scaffold\Operations\ScaffoldResult
    *   The scaffold result.
    */
   protected function symlinkScaffold(ScaffoldFilePath $destination, IOInterface $io) {

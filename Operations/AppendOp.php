@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\Composer\Plugin\Scaffold\Operations;
+namespace Mautic\Composer\Plugin\Scaffold\Operations;
 
 use Composer\IO\IOInterface;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath;
-use Drupal\Composer\Plugin\Scaffold\ScaffoldOptions;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath;
+use Mautic\Composer\Plugin\Scaffold\ScaffoldOptions;
 
 /**
  * Scaffold operation to add to the beginning and/or end of a scaffold file.
@@ -21,21 +21,21 @@ class AppendOp extends AbstractOperation {
   /**
    * Path to the source file to prepend, if any.
    *
-   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $prepend;
 
   /**
    * Path to the source file to append, if any.
    *
-   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $append;
 
   /**
    * Path to the default data to use when appending to an empty file.
    *
-   * @var \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath
+   * @var \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath
    */
   protected $default;
 
@@ -59,13 +59,13 @@ class AppendOp extends AbstractOperation {
   /**
    * Constructs an AppendOp.
    *
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $prepend_path
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $prepend_path
    *   The relative path to the prepend file.
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $append_path
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $append_path
    *   The relative path to the append file.
    * @param bool $force_append
    *   TRUE if is okay to append to a file that was not scaffolded.
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $default_path
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $default_path
    *   The relative path to the default data.
    */
   public function __construct(ScaffoldFilePath $prepend_path = NULL, ScaffoldFilePath $append_path = NULL, $force_append = FALSE, ScaffoldFilePath $default_path = NULL) {
@@ -189,7 +189,7 @@ class AppendOp extends AbstractOperation {
    * Check to see if the append/prepend data has already been applied.
    * @param string $contents
    *   The contents of the target file.
-   * @param \Drupal\Composer\Plugin\Scaffold\ScaffoldFilePath $data_path
+   * @param \Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $data_path
    *   The path to the data to append or prepend
    * @return bool
    *   'TRUE' if the append/prepend data already exists in contents.
