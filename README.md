@@ -22,7 +22,7 @@ explicitly granted that right in the top-level composer.json file. See
 
 ## Usage
 
-Mautic Composer Scaffold is used by requiring `nickveenhof/mautic-core-composer-scaffold` in your
+Mautic Composer Scaffold is used by requiring `mautic/core-composer-scaffold` in your
 project, and providing configuration settings in the `extra` section of your
 project's composer.json file. Additional configuration from the composer.json
 file of your project's dependencies is also consulted in order to scaffold the
