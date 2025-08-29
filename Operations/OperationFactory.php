@@ -122,12 +122,12 @@ class OperationFactory {
   /**
    * Checks to see if the specified scaffold file exists and has content.
    *
-   * @param Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath $file
+   * @param Mautic\Composer\Plugin\Scaffold\ScaffoldFilePath|null $file
    *   Scaffold file to check.
    * @return bool
    *   True if the file exists and has content.
    */
-  protected function hasContent(ScaffoldFilePath $file = NULL) {
+  protected function hasContent(?ScaffoldFilePath $file): bool {
     if (!$file) {
       return FALSE;
     }
